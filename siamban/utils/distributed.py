@@ -132,7 +132,7 @@ def reduce_gradients(model, _type='sum'):
     if get_world_size() > 1:
         for param in model.parameters():
             if param.requires_grad:
-                dist.all_reduce(param.grad.data)
+                if param.grad is not None: dist.all_reduce(param.grad.data)
                 if _type == 'avg':
                     param.grad.data /= get_world_size()
     else:

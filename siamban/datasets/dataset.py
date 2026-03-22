@@ -101,9 +101,9 @@ class SubDataset(object):
         return pick[:self.num_use]
 
     def get_image_anno(self, video, track, frame):
-        frame = "{:06d}".format(frame)
+        frame = "{:04d}".format(frame)
         image_path = os.path.join(self.root, video,
-                                  self.path_format.format(frame, track, 'x'))
+                                  frame + ".jpg")
         image_anno = self.labels[video][track][frame]
         return image_path, image_anno
 

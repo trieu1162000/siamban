@@ -39,7 +39,7 @@ parser.add_argument('--cfg', type=str, default='config.yaml',
                     help='configuration of tracking')
 parser.add_argument('--seed', type=int, default=123456,
                     help='random seed')
-parser.add_argument('--local_rank', type=int, default=0,
+parser.add_argument('--local-rank', type=int, default=0,
                     help='compulsory for pytorch launcer')
 args = parser.parse_args()
 
@@ -163,7 +163,7 @@ def train(train_loader, model, optimizer, lr_scheduler, tb_writer):
             get_rank() == 0:
         os.makedirs(cfg.TRAIN.SNAPSHOT_DIR)
 
-    logger.info("model\n{}".format(describe(model.module)))
+    logger.info("model\n{}".format(describe(model)))
     end = time.time()
     for idx, data in enumerate(train_loader):
         if epoch != idx // num_per_epoch + start_epoch:
@@ -182,7 +182,7 @@ def train(train_loader, model, optimizer, lr_scheduler, tb_writer):
             if cfg.BACKBONE.TRAIN_EPOCH == epoch:
                 logger.info('start training backbone.')
                 optimizer, lr_scheduler = build_opt_lr(model.module, epoch)
-                logger.info("model\n{}".format(describe(model.module)))
+                logger.info("model\n{}".format(describe(model)))
 
             lr_scheduler.step(epoch)
             cur_lr = lr_scheduler.get_cur_lr()

@@ -45,7 +45,12 @@ def weight_l1_loss(pred_loc, label_loc, loss_weight):
 
 def select_iou_loss(pred_loc, label_loc, label_cls):
     label_cls = label_cls.reshape(-1)
-    pos = label_cls.data.eq(1).nonzero().squeeze().cuda()
+    pos_mask = label_cls.data.eq(1)
+    if pos_mask.sum() == 0:
+        return torch.tensor(0.0, requires_grad=True).cuda()
+    pos = pos_mask.nonzero().squeeze().cuda()
+    if pos.dim() == 0:
+        pos = pos.unsqueeze(0)
 
     pred_loc = pred_loc.permute(0, 2, 3, 1).reshape(-1, 4)
     pred_loc = torch.index_select(pred_loc, 0, pos)
