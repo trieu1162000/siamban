@@ -44,16 +44,16 @@ DATASET:
   NAMES:
     - VID
   TEMPLATE:
-    SHIFT: 4
-    SCALE: 0.05
-    BLUR: 0.0
-    FLIP: 0.0
+    SHIFT: 8
+    SCALE: 0.1
+    BLUR: 0.3
+    FLIP: 0.3
     COLOR: 1.0
   SEARCH:
-    SHIFT: 64
-    SCALE: 0.18
+    SHIFT: 96
+    SCALE: 0.25
     BLUR: 0.2
-    FLIP: 0.0
+    FLIP: 0.3
     COLOR: 1.0
   NEG: 0.2
   GRAY: 0.0
